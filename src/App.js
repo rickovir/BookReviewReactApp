@@ -1,25 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import { NewBook } from './new-book/NewBook';
+import { BookList } from './book-list/BookList';
+import { BookReview } from './book-review/BookReview';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      books:[]
+    };
+
+    this.submitBookHandler = this.submitBookHandler.bind(this);
+  }
+
+  submitBookHandler(book)
+  {
+    this.state.books.push(book);
+
+    console.log(this.state.books);
+  }
+
+  render(){
+    return (
+      <div className="container mt-3">
+        <h3>BookReviewApp</h3>
+        <NewBook onAddBook={this.submitBookHandler} />
+        <BookList />
+        <BookReview />
+      </div>
+    );
+  }
 }
 
 export default App;

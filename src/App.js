@@ -10,17 +10,28 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      books:[]
+      books:[],
+      activeIndex:0
     };
 
     this.submitBookHandler = this.submitBookHandler.bind(this);
+    this.selectedIndexHandler = this.selectedIndexHandler.bind(this);
   }
 
-  submitBookHandler(book)
+  selectedIndexHandler(index)
   {
-    this.state.books.push(book);
+    this.setState({
+      activeIndex:index
+    });
 
-    console.log(this.state.books);
+    console.log(this.state.activeIndex)
+  }
+
+  submitBookHandler(newBook)
+  {
+    this.setState({
+      books:[...this.state.books,newBook]
+    })
   }
 
   render(){
@@ -28,7 +39,7 @@ class App extends React.Component {
       <div className="container mt-3">
         <h3>BookReviewApp</h3>
         <NewBook onAddBook={this.submitBookHandler} />
-        <BookList />
+        <BookList books={this.state.books} onSelectIndex={this.selectedIndexHandler} activeIndex={this.state.activeIndex} />
         <BookReview />
       </div>
     );
